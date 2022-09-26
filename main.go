@@ -2,13 +2,17 @@ package main
 
 import (
 	"github.com/Erickype/GoRoutines/routines"
-	"time"
+	"sync"
 )
 
 func main() {
+
+	wg := &sync.WaitGroup{}
+
 	for i := 0; i < 10; i++ {
-		go routines.ShowGoRoutine(i)
+		wg.Add(1)
+		go routines.ShowGoRoutine(i, wg)
 	}
 
-	time.Sleep(time.Minute)
+	wg.Wait()
 }
