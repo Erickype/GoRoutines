@@ -1,7 +1,14 @@
 package routines
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+	"time"
+)
 
 func ShowGoRoutine(id int) {
-	fmt.Printf("Goroutine #%v", id)
+	delay := rand.Intn(500)
+	fmt.Printf("Goroutine #%v with %vms delay.\n", id, delay)
+
+	time.Sleep(time.Millisecond * time.Duration(delay))
 }
