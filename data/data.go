@@ -6,7 +6,13 @@ type Book struct {
 	Finished bool
 }
 
-var books = []*Book{}
+var books = []*Book{
+	{Id: 1, Title: "A", Finished: false},
+	{Id: 2, Title: "B", Finished: false},
+	{Id: 3, Title: "C", Finished: false},
+	{Id: 4, Title: "D", Finished: false},
+	{Id: 5, Title: "E", Finished: false},
+}
 
 func FindBook(id int) (int, *Book) {
 	index := -1
