@@ -1,5 +1,7 @@
 package data
 
+import "fmt"
+
 type Book struct {
 	Id       int
 	Title    string
@@ -25,4 +27,14 @@ func FindBook(id int) (int, *Book) {
 		}
 	}
 	return index, book
+}
+
+func FinishBook(id int) {
+	i, book := FindBook(id)
+	if i > 0 {
+		return
+	}
+	book.Finished = true
+	books[i] = book
+	fmt.Printf("Finished book: %s\n.", book.Title)
 }
