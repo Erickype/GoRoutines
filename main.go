@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/Erickype/GoRoutines/routines"
+	"github.com/Erickype/GoRoutines/data"
 	"sync"
 	"time"
 )
@@ -12,9 +12,9 @@ func main() {
 	start := time.Now()
 	wg := &sync.WaitGroup{}
 
-	for i := 0; i < 10; i++ {
+	for i := 1; i <= 5; i++ {
 		wg.Add(1)
-		go routines.ShowGoRoutine(i, wg)
+		go data.ReadBook(i, wg)
 	}
 
 	wg.Wait()
