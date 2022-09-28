@@ -11,10 +11,11 @@ func main() {
 
 	start := time.Now()
 	wg := &sync.WaitGroup{}
+	m := &sync.Mutex{}
 
-	for i := 1; i <= 5; i++ {
+	for i := 0; i < 10; i++ {
 		wg.Add(1)
-		go data.ReadBook(i, wg)
+		go data.ReadBook(i, wg, m)
 	}
 
 	wg.Wait()
