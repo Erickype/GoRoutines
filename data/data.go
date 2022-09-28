@@ -1,6 +1,11 @@
 package data
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+	"sync"
+	"time"
+)
 
 type Book struct {
 	Id       int
@@ -16,7 +21,7 @@ var books = []*Book{
 	{Id: 5, Title: "E", Finished: false},
 }
 
-func FindBook(id int) (int, *Book) {
+func findBook(id int) (int, *Book) {
 	index := -1
 	var book *Book
 
@@ -29,12 +34,21 @@ func FindBook(id int) (int, *Book) {
 	return index, book
 }
 
-func FinishBook(id int) {
-	i, book := FindBook(id)
+func finishBook(id int) {
+	i, book := findBook(id)
 	if i > 0 {
 		return
 	}
 	book.Finished = true
 	books[i] = book
 	fmt.Printf("Finished book: %s\n.", book.Title)
+}
+
+func ReadBook(id int, wg *sync.WaitGroup) {
+	finishBook(id)
+
+	delay := rand.Intn(500)
+	time.Sleep(time.Duration(delay) * time.Millisecond)
+
+	wg.Done()
 }
