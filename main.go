@@ -11,7 +11,7 @@ func main() {
 
 	start := time.Now()
 	wg := &sync.WaitGroup{}
-	m := &sync.Mutex{}
+	m := &sync.RWMutex{}
 
 	for i := 0; i < 10; i++ {
 		wg.Add(1)
