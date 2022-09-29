@@ -26,23 +26,23 @@ var books = []*Book{
 	{Id: 10, Title: "J", Finished: false},
 }
 
-func findBook(id int, m *sync.Mutex) (int, *Book) {
+func findBook(id int, m *sync.RWMutex) (int, *Book) {
 	index := -1
 	var book *Book
 
-	m.Lock()
+	m.RLock()
 	for i, b := range books {
 		if b.Id == (id + 1) {
 			index = i
 			book = b
 		}
 	}
-	m.Unlock()
+	m.RUnlock()
 
 	return index, book
 }
 
-func finishBook(id int, m *sync.Mutex) {
+func finishBook(id int, m *sync.RWMutex) {
 	i, book := findBook(id, m)
 	if i < 0 {
 		return
@@ -56,7 +56,7 @@ func finishBook(id int, m *sync.Mutex) {
 	fmt.Printf("Finished book: %s.\n", book.Title)
 }
 
-func ReadBook(id int, wg *sync.WaitGroup, m *sync.Mutex) {
+func ReadBook(id int, wg *sync.WaitGroup, m *sync.RWMutex) {
 	finishBook(id, m)
 
 	delay := rand.Intn(500)
